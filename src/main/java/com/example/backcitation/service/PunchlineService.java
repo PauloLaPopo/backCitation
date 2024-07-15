@@ -24,4 +24,8 @@ public class PunchlineService {
         Collections.shuffle(allAuthors);
         return allAuthors.subList(0, Math.min(3, allAuthors.size()));
     }
+
+    public List<String> getAllAuthors() {
+        return punchlineRepository.findAllAuthors();
+    }
 }

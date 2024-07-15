@@ -29,4 +29,10 @@ public class PunchlineController {
         return punchlineService.getDifferentAuthors(authorRequest.getAuthor());
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/authors")
+    public List<String> getAllAuthors() {
+        return punchlineService.getAllAuthors();
+    }
+
 }
