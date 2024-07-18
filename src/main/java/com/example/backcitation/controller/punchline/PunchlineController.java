@@ -1,8 +1,8 @@
-package com.example.backcitation.controller;
+package com.example.backcitation.controller.punchline;
 
 import com.example.backcitation.dto.AuthorRequest;
 import com.example.backcitation.model.Punchline;
-import com.example.backcitation.service.PunchlineService;
+import com.example.backcitation.service.punchline.PunchlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

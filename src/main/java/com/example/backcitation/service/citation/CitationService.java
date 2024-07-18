@@ -1,8 +1,8 @@
-package com.example.backcitation.service;
+package com.example.backcitation.service.citation;
 
 
 import com.example.backcitation.model.Citation;
-import com.example.backcitation.repository.CitationRepository;
+import com.example.backcitation.repository.citation.CitationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

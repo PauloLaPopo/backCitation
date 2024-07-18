@@ -1,6 +1,6 @@
 package com.example.backcitation.config;
 
-import com.example.backcitation.service.JwtService;
+import com.example.backcitation.service.authentication.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.example.backcitation.repository;
+package com.example.backcitation.repository.punchline;
 
 import com.example.backcitation.model.Punchline;
 import org.springframework.data.jpa.repository.JpaRepository;

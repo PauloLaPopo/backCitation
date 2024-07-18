@@ -1,6 +1,6 @@
 package com.example.backcitation.config;
 
-import com.example.backcitation.repository.UserRepository;
+import com.example.backcitation.repository.authentication.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

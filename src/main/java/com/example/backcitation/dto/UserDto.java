@@ -3,13 +3,19 @@ package com.example.backcitation.dto;
 public class UserDto {
 
     private int userId;
-    private String userName;
+    private String fullName;
     private String email;
     private String password;
 
-    public UserDto (int userId, String userName, String email, String password) {
+    public UserDto (int userId, String fullName, String email, String password) {
         this.userId = userId;
-        this.userName = userName;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserDto (String fullName, String email, String password) {
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
@@ -18,8 +24,8 @@ public class UserDto {
         this.userId = userId;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setEmail(String email) {
@@ -35,7 +41,7 @@ public class UserDto {
     }
 
     public String getUserName() {
-        return userName;
+        return fullName;
     }
 
     public String getEmail() {

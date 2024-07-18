@@ -1,10 +1,10 @@
-package com.example.backcitation.controller;
+package com.example.backcitation.controller.authentication;
 
 import com.example.backcitation.dto.LoginDto;
 import com.example.backcitation.dto.UserDto;
 import com.example.backcitation.model.User;
-import com.example.backcitation.service.AuthenticationService;
-import com.example.backcitation.service.JwtService;
+import com.example.backcitation.service.authentication.AuthenticationService;
+import com.example.backcitation.service.authentication.JwtService;
 import com.example.backcitation.utils.LoginResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +33,6 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginDto loginDto) {
-//        System.out.println(loginDto.getEmail());
         User authenticatedUser = authenticationService.authenticate(loginDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
         LoginResponse loginResponse = new LoginResponse(jwtToken, jwtService.getExpirationTime());

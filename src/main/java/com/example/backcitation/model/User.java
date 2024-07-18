@@ -1,40 +1,51 @@
 package com.example.backcitation.model;
 
-import com.example.backcitation.utils.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
 
     @Id
-    @Column(name = "user_id", length = 255)
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private Integer id;
 
-    @Column(name = "user_name", length = 255)
-    private String userName;
+    @Column(nullable = false)
+    private String fullName;
 
-    @Column(name = "email", length = 255)
+    @Column(unique = true, length = 100, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 255)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "role", length = 255)
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.getName().toString());
+
+        return List.of(authority);
     }
 
     @Override
@@ -45,19 +56,18 @@ public class User implements UserDetails {
     public User() {}
 
     public User(String userName, String email, String password, Role role) {
-        this.userId = UUID.randomUUID().toString();
-        this.userName = userName;
+        this.fullName = userName;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setEmail(String email) {
@@ -68,16 +78,18 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setRole(Role role) {
+    public User setRole(Role role) {
         this.role = role;
+
+        return this;
     }
 
-    public String getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
-        return userName;
+        return fullName;
     }
 
     public String getEmail() {

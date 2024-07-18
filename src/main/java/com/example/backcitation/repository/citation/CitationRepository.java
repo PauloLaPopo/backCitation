@@ -1,4 +1,4 @@
-package com.example.backcitation.repository;
+package com.example.backcitation.repository.citation;
 
 import com.example.backcitation.model.Citation;
 import org.springframework.data.jpa.repository.JpaRepository;

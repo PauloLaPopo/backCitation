@@ -1,7 +1,7 @@
-package com.example.backcitation.service;
+package com.example.backcitation.service.punchline;
 
 import com.example.backcitation.model.Punchline;
-import com.example.backcitation.repository.PunchlineRepository;
+import com.example.backcitation.repository.punchline.PunchlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

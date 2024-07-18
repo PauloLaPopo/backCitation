@@ -1,4 +1,4 @@
-package com.example.backcitation.service;
+package com.example.backcitation.service.authentication;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
