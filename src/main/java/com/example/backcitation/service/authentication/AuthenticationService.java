@@ -48,6 +48,7 @@ public class AuthenticationService {
                 this.passwordEncoder.encode(userDto.getPassword()),
                 optionalRole.get()
         );
+        System.out.println("On est ici" + user.getId());
         return userRepository.save(user);
     }
 

@@ -10,15 +10,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private Integer id;
+    private String id;
 
     @Column(nullable = false)
     private String fullName;
@@ -37,7 +37,7 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
     private Role role;
 
@@ -56,13 +56,14 @@ public class User implements UserDetails {
     public User() {}
 
     public User(String userName, String email, String password, Role role) {
+        this.id = UUID.randomUUID().toString();
         this.fullName = userName;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -84,7 +85,7 @@ public class User implements UserDetails {
         return this;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
