@@ -4,6 +4,9 @@ import com.example.backcitation.dto.AuthorRequest;
 import com.example.backcitation.model.Punchline;
 import com.example.backcitation.service.punchline.PunchlineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,13 +17,11 @@ public class PunchlineController {
     @Autowired
     private PunchlineService punchlineService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/all")
     public List<Punchline> getAllPunchlines() {
         return punchlineService.getAllPunchlines();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/different-authors")
     public List<String> getDifferentAuthors(@RequestBody AuthorRequest authorRequest) {
         if (authorRequest == null || authorRequest.getAuthor() == null || authorRequest.getAuthor().isEmpty()) {
@@ -29,10 +30,35 @@ public class PunchlineController {
         return punchlineService.getDifferentAuthors(authorRequest.getAuthor());
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/authors")
     public List<String> getAllAuthors() {
         return punchlineService.getAllAuthors();
+    }
+
+    @PostMapping("/add")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<Punchline> addPunchline(@RequestBody Punchline newPunchline) {
+        Punchline punchline = punchlineService.addPunchline(newPunchline);
+        return new ResponseEntity<>(punchline, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<Punchline> updatePunchline(@PathVariable Long id, @RequestBody Punchline punchline) {
+        Punchline updatedPunchline = punchlineService.updatePunchline(id, punchline);
+        return ResponseEntity.ok(updatedPunchline);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
+    public ResponseEntity<Void> deletePunchline(@PathVariable Long id) {
+        punchlineService.deletePunchline(id);
+        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Punchline> getPunchlineById(@PathVariable Long id) {
+        Punchline punchline = punchlineService.getPunchlineById(id);
+        return ResponseEntity.ok(punchline);
     }
 
 }

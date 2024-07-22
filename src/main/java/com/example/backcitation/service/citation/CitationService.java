@@ -1,6 +1,7 @@
 package com.example.backcitation.service.citation;
 
 
+import com.example.backcitation.exception.CitationNotFoundException;
 import com.example.backcitation.model.Citation;
 import com.example.backcitation.repository.citation.CitationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class CitationService {
     }
 
     public Citation getCitationById(long id) {
-        return citationRepository.getReferenceById(id);
-    }
+        return citationRepository.findById(id)
+                .orElseThrow(() -> new CitationNotFoundException("Citation not found with id: " + id));    }
 
     public List<String> getDifferentAuthors(String author) {
         List<String> allAuthors = citationRepository.findDistinctAuteurs(author);

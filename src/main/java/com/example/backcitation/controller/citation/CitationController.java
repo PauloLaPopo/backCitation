@@ -6,6 +6,7 @@ import com.example.backcitation.service.citation.CitationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class CitationController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<Citation> addCitation(@RequestBody Citation newCitation) {
         Citation nouvelleCitation = citationService.addCitation(newCitation);
         return new ResponseEntity<>(nouvelleCitation, HttpStatus.CREATED);
@@ -47,12 +49,14 @@ public class CitationController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<Citation> updateCitation(@PathVariable Long id, @RequestBody Citation citation) {
         Citation updatedCitation = citationService.updateCitation(id, citation);
         return ResponseEntity.ok(updatedCitation);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<Void> deleteCitation(@PathVariable Long id) {
         citationService.deleteCitation(id);
         return ResponseEntity.noContent().build();
