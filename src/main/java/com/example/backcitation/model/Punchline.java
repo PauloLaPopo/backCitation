@@ -1,17 +1,19 @@
 package com.example.backcitation.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "punchlines")
 public class Punchline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
     private Long id;
+    @Column(unique = true, nullable = false)
     private String punchline;
+    @Column(nullable = false)
     private String auteur;
+    @Column(nullable = false)
     private String titre;
 
     public Punchline() {

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PunchlineRepository extends JpaRepository<Punchline, Long> {
     @Query("SELECT DISTINCT p.auteur FROM Punchline p WHERE LOWER(p.auteur) <> LOWER(:author)")
@@ -13,4 +14,6 @@ public interface PunchlineRepository extends JpaRepository<Punchline, Long> {
 
     @Query("SELECT DISTINCT p.auteur FROM Punchline p")
     List<String> findAllAuthors();
+
+    Optional<Punchline> findByPunchline(String punchline);
 }

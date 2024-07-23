@@ -49,7 +49,7 @@ public class PunchlineController {
         return ResponseEntity.ok(updatedPunchline);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<Void> deletePunchline(@PathVariable Long id) {
         punchlineService.deletePunchline(id);

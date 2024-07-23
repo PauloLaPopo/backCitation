@@ -6,8 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CitationRepository extends JpaRepository<Citation, Long> {
     @Query("SELECT DISTINCT c.auteur FROM Citation c WHERE LOWER(c.auteur) <> LOWER(:author)")
     List<String> findDistinctAuteurs(@Param("author") String author);
+
+    Optional<Citation> findByTexte(String texte);
 }
